@@ -11,7 +11,7 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="<?= base_url();?>/login/verify" method="post">
+                    <form id="login-form" class="form" action="<?= base_url();?>/login" method="post">
                         <img src= "img/fealogo.png" alt="logo" style="height: 65px; margin-bottom: 50px; margin-left: 78px;">
                         <h6 class="text-center" style="padding-bottom: 20px; color: black; opacity: 0.5;">Welcome to FEA Management System</h6>
                             <?php if(session()->getFlashdata('msg')):?>
