@@ -13,7 +13,7 @@ class UserModel extends Model{
 
     protected $allowedFields = ['user_id','employee_id', 'username', 'password', 'role', 'profile_pic', 'first_name', 'middle_name', 'last_name', 'gender', 'birthdate', 'contact_number', 'email', 'address', 'status', 'email_code'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';

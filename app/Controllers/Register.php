@@ -66,4 +66,38 @@ class Register extends BaseController
 			echo view('register', $data);
 		}
 	}
+
+	public function activate() {
+		$uri = new \CodeIgniter\HTTP\URI();
+        $id = $this->request->uri->getSegment(3);
+        $code = $this->request->uri->getSegment(4);
+
+		$model = new UserModel();
+		//fetch user details
+		$user = $model->where('user_id', $id)->first();
+
+		if($user['email_code'] == $code) {
+            if($user['status'] == 'a') {
+                $session = session();
+                $session->setFlashdata('msg', 'Account already activated! Please login.');
+                return redirect()->to('/login');
+            }
+            else {
+                $data = [
+                    'status' => 'a'
+                ];
+                if($model->update($id, $data)) {
+                    $session = session();
+                    $session->setFlashdata('msg', 'Account activated!');
+                    return redirect()->to('/login');
+                }
+                else {
+                    die('Activation failed, contact admin.');
+                }
+            }
+        }
+        else {
+            die('Activation code error, please contact admin.');
+        }
+	}
 }
