@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #343A40;
+    height: 100vh;
+}
+
+/*#register .container #register-row #register-column #register-box {
+    margin-top: 35px;
+    height: 1000px;
+    width: 1300px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+}
+
+#login .container #register-row #register-column #register-box #register-form {
+    padding: 20px;
+}
+
+#register .container #register-row #register-column #register-box #register-form {
+    margin-top: -85px;
+}*/
