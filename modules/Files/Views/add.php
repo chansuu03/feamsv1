@@ -20,9 +20,9 @@
 <?= $this->section('content');?>
 <?php helper('form'); ?>
 
-<?php if($logged_in['dept_id'] == 1): ?>
+<?php if($logged_in['role'] == 1): ?>
   <?= form_open_multipart('files/add'); ?>
-<?php elseif($logged_in['dept_id'] != 1): ?>
+<?php elseif($logged_in['role'] != 1): ?>
   <?= form_open_multipart($logged_in['username'].'/files/add'); ?>
 <?php endif;?>
   <!-- SELECT2 EXAMPLE -->

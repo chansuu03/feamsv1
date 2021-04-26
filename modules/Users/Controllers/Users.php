@@ -125,8 +125,6 @@ class Users extends \CodeIgniter\Controller {
         $data['logged_in'] = $userModel->viewProfile($session->get('username'));
         $data['active'] = 'users';
 
-        $deptModel = new DepartmentModel();
-        $data['depts'] = $deptModel->orderBy('dept_id', 'ASC')->findAll();
         $data['user'] = $userModel->viewProfile($username);
         //view palang ng site
         return view('Modules\Users\Views\details', $data);

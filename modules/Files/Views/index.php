@@ -35,9 +35,9 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div class="d-flex flex-row-reverse" style="margin-bottom: 5px;">
-            <?php if($logged_in['dept_id'] == 1): ?>
+            <?php if($logged_in['role'] == 1): ?>
             <a href="<?= base_url('files/add');?>" class="btn btn-outline-success btn-sm align-self-end" role="button" aria-pressed="true">Add Files</a>
-            <?php elseif($logged_in['dept_id'] != 1): ?>
+            <?php elseif($logged_in['role'] != 1): ?>
             <a href="<?= base_url($logged_in['username'].'/files/add');?>" class="btn btn-outline-success btn-sm align-self-end" role="button" aria-pressed="true">Add Files</a>
             <?php endif;?>
         </div>
@@ -80,7 +80,7 @@
                         ?>
                     </td>
                     <td style="text-align: center;">
-                        <?php if(session()->get('type') == 1):?>
+                        <?php if(session()->get('role') == '1'):?>
                         <button type="button" value="<?= $file['file_id']?>" name="button" class="btn btn-danger btn-sm del" data-toggle="tooltip" data-placement="bottom" title="Delete" id="del"><i class="fas fa-trash"></i></button>
                         <?php endif;?>
                     </td>

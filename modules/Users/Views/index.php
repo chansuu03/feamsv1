@@ -39,7 +39,6 @@
       <div class="card-header bg-light">
         <div class="d-flex justify-content-between">
           <span style="margin-top: 3px;">Active Users</span>
-          <a href="<?= base_url('users/add');?>" class="btn btn-outline-success btn-sm align-self-end" role="button" aria-pressed="true">Add User</a>
         </div>
       </div>
       <!-- card header -->

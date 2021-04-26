@@ -27,7 +27,7 @@
         </div>
 
         <h3 class="profile-username text-center"><?= $logged_in['first_name']?> <?= $logged_in['last_name']?></h3>
-        <p class="text-muted text-center"><?= $logged_in['dept_name']?></p>
+        <p class="text-muted text-center"><?= $logged_in['role']?></p>
 
         <ul class="list-group list-group-unbordered mb-3">
           <li class="list-group-item">

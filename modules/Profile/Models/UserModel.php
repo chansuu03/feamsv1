@@ -35,7 +35,6 @@ class UserModel extends \CodeIgniter\Model
     public function viewProfile($id)
     {
       return $this->where('username', $id)
-                  ->join('fea_departments', 'fea_departments.dept_id = fea_users.dept_id')
                   ->first();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-$routes->group('files',['filter' => 'admin', 'namespace' => 'Modules\Files\Controllers'], function($routes)
+$routes->group('files',['namespace' => 'Modules\Files\Controllers'], function($routes)
 {
   $routes->get('/', 'Files::index');
   $routes->match(['get', 'post'], 'add', 'Files::add');

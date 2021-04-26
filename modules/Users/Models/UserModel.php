@@ -26,13 +26,10 @@ class UserModel extends \CodeIgniter\Model
     }
 
     public function viewActive() {
-        return $this->join('fea_departments', 'fea_departments.dept_id = fea_users.type')
-                    ->findAll();
+        return $this->findAll();
     }
 
     public function viewProfile($id) {
-        return $this->where('username', $id)
-                    ->join('fea_departments', 'fea_departments.dept_id = fea_users.type')
-                    ->first();
+        return $this->where('username', $id)->first();
     }
 }

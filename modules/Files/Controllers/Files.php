@@ -23,8 +23,8 @@ class Files extends \CodeIgniter\Controller
 
         // dapat separate yung admin pati mga user na files
         $fileModel = new FileModel();
-        $data['files'] = $fileModel->where('uploader', 'admin')->findAll();
-        $data['members'] = $fileModel->where('uploader !=', 'admin')->findAll();
+        $data['files'] = $fileModel->where('uploader', '1')->findAll();
+        $data['members'] = $fileModel->where('uploader !=', '1')->findAll();
         return view('Modules\Files\Views\index', $data);
     }
 
@@ -47,30 +47,41 @@ class Files extends \CodeIgniter\Controller
             $upload = $this->request->getFile('assocFile');
             $data = [
                 'name' => $request->getPost('title'),
-                'uploader' => $data['logged_in']['employee_id'],
+                'uploader' => $data['logged_in']['user_id'],
                 'name' =>  $request->getPost('title').'.'.$upload->guessExtension(),
                 'size' =>  $upload->getSize(),
                 'extension'  => $upload->guessExtension(),
                 'uploaded_at' => date('Y-m-d H:i:s')
             ];
-            $upload->move('uploads/files/assoc', $data['name']);
-            $fileModel->insert($data);
+            if($upload->move('uploads/files/assoc', $data['name'])) {
+                if($fileModel->insert($data)) {
+                    session()->setFlashdata('msg', 'File uploaded successfully');
+                    return redirect()->to(base_url() . '/files');
+                }
+                else {
+                    session()->setFlashdata('msg', 'Warning: File saved but info not saved');
+                    return redirect()->to(base_url() . '/files');
+                }
+            }
+            else {
+                session()->setFlashdata('msg', 'Error uploading file, please try again');
+                return redirect()->to(base_url() . '/files');
+            }
         }
     }
 
     public function member($username = NULL) {
-        $userFilter = new userFilter();
+        $session = session();
 
-        if($userFilter->isLoggedIn()) {
+        if($session->get('logged_in') == true) {
             //need always
-            $session = session();
             $userModel = new UserModel();
             $data['logged_in'] = $userModel->viewProfile($session->get('username'));
             $data['active'] = 'files';
     
             $fileModel = new FileModel();
-            $data['files'] = $fileModel->where('uploader', 'admin')->findAll();
-            $data['members'] = $fileModel->where('uploader', $session->get('username'))->findAll();
+            $data['files'] = $fileModel->where('uploader', '1')->findAll();
+            $data['members'] = $fileModel->where('uploader', $session->get('user_id'))->findAll();
             return view('Modules\Files\Views\index', $data);
         }
         else {
@@ -87,9 +98,8 @@ class Files extends \CodeIgniter\Controller
         $userModel = new UserModel();
         $fileModel = new FileModel();
         $data['logged_in'] = $userModel->viewProfile($session->get('username'));
-        $userFilter = new userFilter();
 
-        if($userFilter->isLoggedIn()) {
+        if($session->get('logged_in') == true) {
             if(empty($_POST)) {
                 //need always
                 $data['active'] = 'files';
@@ -100,7 +110,7 @@ class Files extends \CodeIgniter\Controller
                 $upload = $this->request->getFile('assocFile');
                 $data = [
                     'name' => $request->getPost('title'),
-                    'uploader' => $data['logged_in']['employee_id'],
+                    'uploader' => $data['logged_in']['user_id'],
                     'name' =>  $request->getPost('title').'.'.$upload->guessExtension(),
                     'size' =>  $upload->getSize(),
                     'extension'  => $upload->guessExtension(),
@@ -122,10 +132,8 @@ class Files extends \CodeIgniter\Controller
     
     public function delete($username = null, $id = null)
     {
-        $userFilter = new userFilter();
-
-        if($userFilter->isLoggedIn()) {
-            $session = session();
+        $session = session();
+        if($session->get('logged_in') == true) {
             $fileModel = new FileModel();
             if($fileModel->find($id)) {
                 $fileModel->delFile($id);

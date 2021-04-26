@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <!-- announcements -->
-          <?php if($logged_in['dept_id'] == '1'): ?>
+          <?php if($logged_in['role'] == '1'): ?>
           <li class="nav-item">
             <a href="<?= base_url()?>/announcements" class="nav-link
             <?php
@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <?php endif; ?>
           <!-- users -->
-          <?php if($logged_in['dept_id'] == '1'): ?>
+          <?php if($logged_in['role'] == '1'): ?>
             <li class="nav-item">
               <a href="<?= base_url()?>/users/active" class="nav-link
               <?php
@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <?php endif; ?>
-          <?php if($logged_in['dept_id'] != '1'): ?>
+          <?php if($logged_in['role'] != '1'): ?>
           <li class="nav-item">
             <a href="<?= base_url()?>/<?= $logged_in['username']?>/files" class="nav-link
             <?php
