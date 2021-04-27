@@ -14,14 +14,13 @@ class Announcements extends \CodeIgniter\Controller
 
     public function index() {
         $session = session();
-        $userFilter = new userFilter();
 
-        if($userFilter->isAdmin() == 'profile') {
+        if($session->get('logged_in') != true) {
             session()->setFlashdata('msg', '404 error');
             return redirect()->to(base_url() . '/profile/' . $session->get('username'));
         }
         else {
-            if(!$userFilter->isAdmin()) {
+            if($session->get('role') != 1) {
                 session()->setFlashdata('msg', 'Please login to access this page.');
                 return redirect()->to(base_url() . '/login');
             }
@@ -41,10 +40,8 @@ class Announcements extends \CodeIgniter\Controller
         $session = session();
         $annModel = new AnnouncementsModel();
         $data['announce'] =  $annModel->where('ann_id', $id)->first();
-        $userFilter = new userFilter();
-
         if($data['announce'] == null) {
-            if($userFilter->isLoggedIn()) {
+            if($session->get('logged_in') == true) {
                 session()->setFlashdata('msg', '404 error');
                 return redirect()->to(base_url() . '/profile/' . $session->get('username'));
             }
@@ -54,7 +51,7 @@ class Announcements extends \CodeIgniter\Controller
             }
         }
         else {
-            if($userFilter->isLoggedIn()) {
+            if($session->get('logged_in') == true) {
                 //need always
                 $session = session();
                 $userModel = new UserModel();
@@ -75,14 +72,13 @@ class Announcements extends \CodeIgniter\Controller
     public function add() {
         $validation =  \Config\Services::validation();
         $session = session();
-        $userFilter = new userFilter();
 
-        if($userFilter->isAdmin() == 'profile') {
+        if($session->get('logged_in') != true) {
             session()->setFlashdata('msg', '404 error');
             return redirect()->to(base_url() . '/profile/' . $session->get('username'));
         }
         else {
-            if(!$userFilter->isAdmin()) {
+            if($session->get('role') != 1) {
                 session()->setFlashdata('msg', 'Please login to access this page.');
                 return redirect()->to(base_url() . '/login');
             }
