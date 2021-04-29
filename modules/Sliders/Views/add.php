@@ -88,7 +88,7 @@
   <script>
     document.querySelector('.custom-file-input').addEventListener('change', function (e)
     {
-      var name = document.getElementById("annImage").files[0].name;
+      var name = document.getElementById("image").files[0].name;
       var nextSibling = e.target.nextElementSibling
       nextSibling.innerText = name
     })

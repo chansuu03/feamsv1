@@ -40,8 +40,8 @@
   </div>
   <div class="card-body">
         <div class="d-flex flex-row-reverse" style="margin-bottom: 5px;">
-            <?php if($logged_in['dept_id'] == 1): ?>
-            <a href="<?= base_url('sliders/add');?>" class="btn btn-outline-success btn-sm align-self-end" role="button" aria-pressed="true">Add Slider</a>
+            <?php if($logged_in['role'] == 1): ?>
+              <a href="<?= base_url('sliders/add');?>" class="btn btn-outline-success btn-sm align-self-end" role="button" aria-pressed="true">Add Slider</a>
             <?php endif;?>
         </div>
         <!-- Table -->
@@ -64,7 +64,7 @@
                   </td>
                   <td>
                     <a href="" type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Show details"><i class="fas fa-bars"></i></a>
-                    <button type="button" value="" name="button" class="btn btn-danger btn-sm del" data-toggle="tooltip" data-placement="bottom" title="Delete" id="del"><i class="fas fa-trash"></i></button>
+                    <button type="button" value="<?= $slider['slider_id']?>" name="button" class="btn btn-danger btn-sm del" data-toggle="tooltip" data-placement="bottom" title="Delete" id="del"><i class="fas fa-trash"></i></button>
                   </td>
                 </tr>
               <?php endforeach;?>

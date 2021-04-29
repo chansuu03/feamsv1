@@ -23,14 +23,13 @@ class Sliders extends Controller
 	public function add() {
         $validation =  \Config\Services::validation();
         $session = session();
-        $userFilter = new userFilter();
 
-        if($userFilter->isAdmin() == 'profile') {
+        if($session->get('logged_in') == false) {
             session()->setFlashdata('msg', '404 error');
             return redirect()->to(base_url() . '/profile/' . $session->get('username'));
         }
         else {
-            if(!$userFilter->isAdmin()) {
+            if($session->get('role') != 1) {
                 session()->setFlashdata('msg', 'Please login to access this page.');
                 return redirect()->to(base_url() . '/login');
             }
@@ -92,4 +91,30 @@ class Sliders extends Controller
             }
         }
 	}
+
+    public function delete($id = null)
+    {
+        $session = session();
+        if($session->get('logged_in') == true) {
+            $model = new SliderModel();
+            if($model->find($id)) {
+                if($model->delete($id)) {
+                    $session->setFlashdata('msg', 'Sucessfully deleted data');
+                    return redirect()->back(); 
+                }
+                else {
+                    $session->setFlashdata('msg', 'Failed to delete data');
+                    return redirect()->back(); 
+                }
+            }
+            else {
+                $session->setFlashdata('msg', 'Failed to delete data');
+                return redirect()->back(); 
+            }
+        }
+        else {
+            session()->setFlashdata('msg', 'Please login to access this page.');
+            return redirect()->to(base_url() . '/login');
+        }
+    }
 }
