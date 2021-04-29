@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- users -->
           <?php if($logged_in['role'] == '1'): ?>
             <li class="nav-item">
-              <a href="<?= base_url()?>/users/active" class="nav-link
+              <a href="<?= base_url()?>/users" class="nav-link
               <?php
                 if ($active == 'users') {
                   echo ' active';
