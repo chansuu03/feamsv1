@@ -2,11 +2,14 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use Modules\Users\Models\LoginModel;
 
 class Login extends BaseController
 {
     public function index() {
         $session = session();
+        $loginModel = new LoginModel();
+        
         if(empty($_POST)) {
             helper(['form'], ['url']);
             return view('login');
@@ -40,7 +43,20 @@ class Login extends BaseController
                                 'logged_in'     => TRUE
                             ];
                             $session->set($ses_data);
-                            return redirect()->to('home');
+                            
+                            // pass login details to database
+                            date_default_timezone_set('Asia/Manila');
+                            $date = date('Y-m-d H:i:s', time());
+                            $loginDetails = [
+                                'user_id' => $user['user_id'],
+                                'role_id' => $user['role'],
+                                'login_date' => $date,
+                                'created_at' => $date,
+                            ];
+
+                            if($loginModel->loginDetails($loginDetails)) {
+                                return redirect()->to('home');
+                            }
                         }
                         else {
                             $session->setFlashdata('msg', 'Invalid username or password?.');

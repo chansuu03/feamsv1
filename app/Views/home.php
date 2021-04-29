@@ -29,7 +29,7 @@
             <a class="nav-link" href="<?= base_url();?>/dashboard">Dashboard</a>
           </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="<?= base_url();?>/users/active">Users</a>
+              <a class="nav-link" href="<?= base_url();?>/users">Users</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?= base_url();?>/announcements">Announcements</a>
@@ -75,10 +75,10 @@
         </div>
         <?php foreach($sliders as $slider):?>
         <div class="carousel-item">
-          <img src="<?=base_url();?>\img\second.svg" alt="Los Angeles" width="100%" height="400">
+          <img src="<?=base_url();?>\uploads\sliders\<?= $slider['image_file']?>" alt="<?= $slider['title']?>" width="100%" height="400">
           <div class="carousel-caption">
-            <h3>Lorem Ipsum</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h3><?= $slider['title']?></h3>
+            <p><?= $slider['description']?></p>
           </div>
         </div>
         <?php endforeach;?>
